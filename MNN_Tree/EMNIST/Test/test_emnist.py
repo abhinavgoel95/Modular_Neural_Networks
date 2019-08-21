@@ -260,15 +260,15 @@ class mod_three(nn.Module):
         self.features = self._make_layers(cfg[size], 16)
         #self.features_down = self._make_layers(cfg_down[size], 32)
         self.classifier = nn.Sequential(
-                        nn.Linear(32*7*7, 13),
+                        nn.Linear(32*7*7, 12),
                 )
 
     def forward(self, x):
-        x = self.features(x)
+        y = self.features(x)
         #x  = self.features_down(y)
-        x = x.view(x.size(0), -1)
+        x = y.view(y.size(0), -1)
         out = self.classifier(x)
-        return x,out
+        return y,out
 
     def _make_layers(self, cfg, channels = 3):
         layers = []
@@ -586,32 +586,18 @@ def test(model, model_zero, model_one, model_three, model_four, model_six, model
                     zero_out1[(zero_out1 == i).nonzero()] = zero_zero[i]
                     count += zero_out1[indices].eq(out_target.view_as(zero_out1[indices])).sum().item()
 
-
-            indices = (root_out == 3).nonzero()[:,0]
-            three_data = next_data[indices]
-            three_target = target[indices]
-            next_three, three_out = model_three(three_data)
-            three_out = three_out.max(1, keepdim=True)[1]
-            for i in three:
-                three_out1 = three_out.clone().to(device)
-                indices = (three_out == i).nonzero()[:,0]
-                out_target = three_target[indices]
-                three_out1[(three_out1 == i).nonzero()] = three[i]
-                count += three_out1[indices].eq(out_target.view_as(three_out1[indices])).sum().item()
-
-            if (three_out == 0).nonzero().shape[0] != 0:
-                indices = (three_out == 0).nonzero()[:,0]
-                zero_data = next_three[indices]
-                zero_target = three_target[indices]
-                _, zero_out = model_three_zero(zero_data)
-                zero_out = zero_out.max(1, keepdim=True)[1]
-                for i in three_zero:
-                    zero_out1 = zero_out.clone().to(device)
-                    indices = (zero_out == i).nonzero()[:,0]
-                    out_target = zero_target[indices]
-                    zero_out1[(zero_out1 == i).nonzero()] = three_zero[i]
+            if (zero_out == 3).nonzero().shape[0] != 0:
+                indices3 = (zero_out == 3).nonzero()[:,0]
+                zero_data = next_zero[indices]
+                zero_three_target = zero_target[indices]
+                _, zero_three_out = model_zero_three(zero_data)
+                zero_three_out = zero_three_out.max(1, keepdim=True)[1]
+                for i in zero_three:
+                    zero_out1 = zero_three_out.clone().to(device)
+                    indices = (zero_three_out == i).nonzero()[:,0]
+                    out_target = zero_three_target[indices]
+                    zero_out1[(zero_out1 == i).nonzero()] = zero_three[i]
                     count += zero_out1[indices].eq(out_target.view_as(zero_out1[indices])).sum().item()
-
 
             if (zero_out == 5).nonzero().shape[0] != 0:
                 indices = (zero_out == 5).nonzero()[:,0]
@@ -651,7 +637,7 @@ def test(model, model_zero, model_one, model_three, model_four, model_six, model
                     out_target = zero_target[indices]
                     zero_out1[(zero_out1 == i).nonzero()] = one_zero[i]
                     count += zero_out1[indices].eq(out_target.view_as(zero_out1[indices])).sum().item()
-
+            
             indices = (root_out == 3).nonzero()[:,0]
             three_data = next_data[indices]
             three_target = target[indices]
@@ -663,7 +649,18 @@ def test(model, model_zero, model_one, model_three, model_four, model_six, model
                 out_target = three_target[indices]
                 three_out1[(three_out1 == i).nonzero()] = three[i]
                 count += three_out1[indices].eq(out_target.view_as(three_out1[indices])).sum().item()
-
+            if (three_out == 0).nonzero().shape[0] != 0:
+                indices = (three_out == 0).nonzero()[:,0]
+                zero_data = next_three[indices]
+                zero_target = three_target[indices]
+                _, zero_out = model_three_zero(zero_data)
+                zero_out = zero_out.max(1, keepdim=True)[1]
+                for i in three_zero:
+                    zero_out1 = zero_out.clone().to(device)
+                    indices = (zero_out == i).nonzero()[:,0]
+                    out_target = zero_target[indices]
+                    zero_out1[(zero_out1 == i).nonzero()] = three_zero[i]
+                    count += zero_out1[indices].eq(out_target.view_as(zero_out1[indices])).sum().item()
             indices = (root_out == 4).nonzero()[:,0]
             four_data = next_data[indices]
             four_target = target[indices]
@@ -783,16 +780,9 @@ def main():
 
         model = model_root().to(torch.device("cuda"))
         model.load_state_dict(torch.load('../Models/emnist_root.pth'))
-        input = torch.randn(1, 1, 28, 28).cuda()
-        flops, params = profile(model, inputs=(input, ))
-        print(flops/10e5)
 
         model_zero = model_0().to(torch.device("cuda"))
         model_zero.load_state_dict(torch.load('../Models/emnist_0.pth'))
-        input = torch.randn(1, 16, 14, 14).cuda()
-        flops, params = profile(model_zero, inputs=(input, ))
-        print(flops/10e5)
-
 
         model_one = model_1().to(torch.device("cuda"))
         model_one.load_state_dict(torch.load('../Models/emnist_1.pth'))
