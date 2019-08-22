@@ -185,8 +185,8 @@ def train(model, model_one, model_three, valloader, device):
 
 def main():
         train_batch_size = 1000
-        svhn_e = datasets.SVHN(root='../DataSVHN', split = 'extra', download=True, transform = transforms.ToTensor())
-        svhn_t = datasets.SVHN(root='../DataSVHN', split = 'train', download=True, transform = transforms.ToTensor())
+        svhn_e = datasets.SVHN(root='../dataSVHN', split = 'extra', download=True, transform = transforms.ToTensor())
+        svhn_t = datasets.SVHN(root='../dataSVHN', split = 'train', download=True, transform = transforms.ToTensor())
         svhn = torch.utils.data.ConcatDataset([svhn_e, svhn_t])
         shuffle_dataset = True
         val_split = 0.1
@@ -213,22 +213,12 @@ def main():
 
         model = model_root().to(torch.device("cuda"))
         model.load_state_dict(torch.load('../Models/svhn_root.pth'))
-        input = torch.randn(1, 3, 32, 32).cuda()
-        flops, params = profile(model, inputs=(input, ))
-        print(flops/10e5)
 
         model_three = model_3().to(torch.device("cuda"))
         model_three.load_state_dict(torch.load('../Models/svhn_3.pth'))
-        input = torch.randn(1, 32, 16, 16).cuda()
-        flops, params = profile(model_three, inputs=(input, ))
-        print(flops/10e5)
-
 
         model_one = model_1().to(torch.device("cuda"))
         model_one.load_state_dict(torch.load('../Models/svhn_1.pth'))
-        input = torch.randn(1, 32, 16, 16).cuda()
-        flops, params = profile(model_one, inputs=(input, ))
-        print(flops/10e5)
 
         train(model, model_one, model_three, val_loader, torch.device("cuda"))
 
