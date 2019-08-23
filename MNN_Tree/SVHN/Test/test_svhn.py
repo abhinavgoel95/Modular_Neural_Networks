@@ -119,7 +119,7 @@ def model_3():
     return mod_three('3')
 
 
-def train(model, model_one, model_three, valloader, device):
+def test(model, model_one, model_three, valloader, device):
         model.eval()
         model_one.eval()
         model_three.eval()
@@ -220,7 +220,7 @@ def main():
         model_one = model_1().to(torch.device("cuda"))
         model_one.load_state_dict(torch.load('../Models/svhn_1.pth'))
 
-        train(model, model_one, model_three, val_loader, torch.device("cuda"))
+        test(model, model_one, model_three, val_loader, torch.device("cuda"))
 
 if __name__== "__main__":
         main()
