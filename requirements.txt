@@ -1,6 +1,5 @@
 alabaster==0.7.12
 anaconda-client==1.7.2
-anaconda-project==0.8.2
 asn1crypto==0.24.0
 astroid==2.1.0
 astropy==3.1.1
@@ -79,10 +78,8 @@ llvmlite==0.27.0
 locket==0.2.0
 lxml==4.3.0
 MarkupSafe==1.1.0
-matplotlib==3.0.2
 mccabe==0.6.1
 mistune==0.8.4
-mkl-fft==1.0.0
 mkl-random==1.0.1
 more-itertools==5.0.0
 mpmath==1.1.0
