@@ -15,9 +15,9 @@ In our hierarchical DNN, visually similar categories are grouped together using 
 - [Python3](https://www.python.org/downloads/)
 - [PyTorch(1.1.0)](http://pytorch.org)
 
-## Results
-
 Use ``` pip3 install -r requirements.txt ``` to install the dependencies for Python3.
+
+## Results
 
 ### Results on CIFAR
 
