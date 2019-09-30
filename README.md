@@ -21,27 +21,16 @@ Use ``` pip3 install -r requirements.txt ``` to install the dependencies for Pyt
 
 ### Results on CIFAR
 
-| Model | FLOPs | Params | CIFAR-10 | CIFAR-100 |
+| Model | Model Size (kB) | FLOPs | Error|
 |---|---|---|---|---|
-| CondenseNet-50 | 28.6M | 0.22M | 6.22 | - |
-| CondenseNet-74 | 51.9M | 0.41M | 5.28 | - |
-| CondenseNet-86 | 65.8M | 0.52M | 5.06 | 23.64 |
-| CondenseNet-98 | 81.3M | 0.65M | 4.83 | - |
-| CondenseNet-110 | 98.2M | 0.79M | 4.63 | - |
-| CondenseNet-122 | 116.7M | 0.95M | 4.48 | - |
-| CondenseNet-182* | 513M | 4.2M | 3.76 | 18.47 |
+| VGG 16 | 78,410 | 313 M | 6.22 | 0.067 |
+| VGG Pruned | 28,200 | 206 M | 5.28 | 0.066 |
+| DenseNet-190 | 102,000 | 9,388 M | 5.06 | 0.070 |
+| CondenseNet-160 | 43,000 | 1,084 M | 4.83 | 0.034 |
+| WideResNet-28,10 | 140,000 | 25,748M | 4.63 | 0.040 |
+| MNN-Tree | 116.7M | 806 | 28M | 0.079 |
 
-(* trained 600 epochs)
 
-### Inference time on ARM platform
-
-| Model | FLOPs | Top-1 | Time(s) |
-|---|---|---|---|
-| VGG-16 | 15,300M | 28.5 | 354 |
-| ResNet-18 | 1,818M | 30.2 | 8.14 |
-| 1.0 MobileNet-224 | 569M | 29.4 | 1.96 |
-| CondenseNet-74 (C=G=4) | 529M | 26.2 | 1.89 |
-| CondenseNet-74 (C=G=8) | 274M | 29.0 | 0.99 |
 
 ## Contact
 goel39@purdue.edu
