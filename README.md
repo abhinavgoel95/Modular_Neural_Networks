@@ -21,14 +21,14 @@ Use ``` pip3 install -r requirements.txt ``` to install the dependencies for Pyt
 
 ### Results on CIFAR
 
-| Model | Model Size (kB) | FLOPs | Error|
-|---|---|---|---|---|
-| VGG 16 | 78,410 | 313 M | 6.22 | 0.067 |
-| VGG Pruned | 28,200 | 206 M | 5.28 | 0.066 |
-| DenseNet-190 | 102,000 | 9,388 M | 5.06 | 0.070 |
-| CondenseNet-160 | 43,000 | 1,084 M | 4.83 | 0.034 |
-| WideResNet-28,10 | 140,000 | 25,748M | 4.63 | 0.040 |
-| MNN-Tree | 806 | 28M | 0.079 |
+| Model            | Model Size (kB) | FLOPs   | Error |
+|------------------|-----------------|---------|-------|
+| VGG 16           | 78,410          | 313 M   | 0.067 |
+| VGG Pruned       | 28,200          | 206 M   | 0.066 |
+| DenseNet-190     | 102,000         | 9,388 M | 0.070 |
+| CondenseNet-160  | 43,000          | 1,084 M | 0.034 |
+| WideResNet-28,10 | 140,000         | 25,748 M| 0.040 |
+| MNN-Tree         | 806             | 26 M    | 0.079 |
 
 
 
