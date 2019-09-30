@@ -9,7 +9,7 @@ This repository contains the code (in PyTorch) for "Modular Neural Networks for 
 - [Python3](https://www.python.org/downloads/)
 - [PyTorch(1.1.0)](http://pytorch.org)
 
-Use ``` pip3 install -r requirements.txt ``` to install the dependencies for Python3.
+Use ``` pip3 install -r ../../requirements.txt ``` to install the dependencies for Python3.
 
 ## Directory Structure
 
